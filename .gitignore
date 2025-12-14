@@ -1,0 +1,40 @@
+# Build artifacts
+*.deb
+*.changes
+*.buildinfo
+*.dsc
+*.tar.gz
+*.tar.xz
+
+# Debhelper / dpkg-buildpackage outputs
+/.pc/
+/debian/.debhelper/
+/debian/debhelper-build-stamp
+/debian/files
+/debian/openmediavault-owncloud-docker/
+/debian/*.log
+/debian/*.substvars
+/debian/tmp/
+
+# Editor/OS noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+*.code-workspace
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Node/npm (just in case)
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Coverage / test outputs
+.coverage
+htmlcov/

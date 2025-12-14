@@ -1,0 +1,52 @@
+{
+  "type": "config",
+  "id": "conf.service.owncloud",
+  "title": "OwnCloud",
+  "description": "OwnCloud Docker deployment settings",
+  "queryinfo": {
+    "container": "config",
+    "xpath": "/config/services/owncloud",
+    "type": "object",
+    "iterable": false
+  },
+  "properties": {
+    "enable": {
+      "type": "boolean",
+      "default": false
+    },
+    "image": {
+      "type": "string",
+      "default": "owncloud/server"
+    },
+    "tag": {
+      "type": "string",
+      "default": "10.14"
+    },
+    "httpport": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535,
+      "default": 8080
+    },
+    "dataDir": {
+      "type": "string",
+      "default": "",
+      "description": "Shared folder UUID for OwnCloud data"
+    },
+    "adminUser": {
+      "type": "string",
+      "default": "admin"
+    },
+    "adminPass": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "required": [
+    "image",
+    "tag",
+    "httpport",
+    "dataDir",
+    "adminUser"
+  ]
+}

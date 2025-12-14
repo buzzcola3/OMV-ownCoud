@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025
+# This file is distributed under the same license as the openmediavault-owncloud-docker package.
+# FIRST AUTHOR <you@example.com>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-owncloud-docker 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-14 00:00+0000\n"
+"PO-Revision-Date: 2025-12-14 00:00+0000\n"
+"Last-Translator: Auto Generated <you@example.com>\n"
+"Language-Team: en_US <you@example.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: workbench/navigation.d/services.owncloud.yaml
+msgid "OwnCloud"
+msgstr "OwnCloud"
+
+#: workbench/route.d/services.owncloud.yaml
+msgid "OwnCloud"
+msgstr "OwnCloud"
+
+#: workbench/component.d/owncloud.yaml
+msgid "Enable OwnCloud"
+msgstr "Enable OwnCloud"
+
+#: workbench/component.d/owncloud.yaml
+msgid "Image"
+msgstr "Image"
+
+#: workbench/component.d/owncloud.yaml
+msgid "Docker image name"
+msgstr "Docker image name"
+
+#: workbench/component.d/owncloud.yaml
+msgid "Tag"
+msgstr "Tag"
+
+#: workbench/component.d/owncloud.yaml
+msgid "Image tag"
+msgstr "Image tag"
+
+#: workbench/component.d/owncloud.yaml
+msgid "HTTP port"
+msgstr "HTTP port"
+
+#: workbench/component.d/owncloud.yaml
+msgid "Data directory"
+msgstr "Data directory"
+
+#: workbench/component.d/owncloud.yaml
+msgid "Select a shared folder ..."
+msgstr "Select a shared folder ..."
+
+#: workbench/component.d/owncloud.yaml
+msgid "Choose an OMV shared folder to store OwnCloud data."
+msgstr "Choose an OMV shared folder to store OwnCloud data."
+
+#: workbench/component.d/owncloud.yaml
+msgid "Admin password"
+msgstr "Admin password"
+
+#: workbench/component.d/owncloud.yaml
+msgid "Deploying OwnCloud ..."
+msgstr "Deploying OwnCloud ..."
+
+#: workbench/component.d/owncloud.yaml
+msgid "Save"
+msgstr "Save"
+
+#: workbench/component.d/owncloud.yaml
+msgid "Save and deploy"
+msgstr "Save and deploy"
+
+#: workbench/component.d/owncloud.yaml
+msgid "Reset"
+msgstr "Reset"

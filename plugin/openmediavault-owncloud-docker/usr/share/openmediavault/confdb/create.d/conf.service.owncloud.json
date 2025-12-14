@@ -1,0 +1,14 @@
+{
+  "type": "config",
+  "id": "conf.service.owncloud",
+  "comment": "Default OwnCloud service settings",
+  "data": {
+    "enable": false,
+    "image": "owncloud/server",
+    "tag": "10.14",
+    "httpport": 8080,
+    "dataDir": "/srv/owncloud/data",
+    "adminUser": "admin",
+    "adminPass": ""
+  }
+}

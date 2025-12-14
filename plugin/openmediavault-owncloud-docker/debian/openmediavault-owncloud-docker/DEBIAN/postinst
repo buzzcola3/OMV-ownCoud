@@ -1,0 +1,19 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    configure)
+        # Reload datamodels and workbench cache, then pre-render compose.
+        /usr/sbin/omv-confdbadm populate || true
+        /bin/bash /usr/share/openmediavault/mkconf/owncloud || true
+        /bin/systemctl restart openmediavault-engined || true
+        ;;
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+    *)
+        echo "postinst called with unknown argument '$1'" >&2
+        exit 1
+        ;;
+ esac
+
+exit 0

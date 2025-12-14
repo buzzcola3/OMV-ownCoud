@@ -1,0 +1,5 @@
+openmediavault-owncloud-docker (0.1.0) stable; urgency=medium
+
+  * Initial package skeleton for OwnCloud Docker plugin.
+
+ -- Your Name <you@example.com>  Tue, 11 Dec 2025 12:00:00 +0000

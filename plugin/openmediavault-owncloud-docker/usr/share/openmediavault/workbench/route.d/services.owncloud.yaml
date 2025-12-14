@@ -1,0 +1,7 @@
+version: "1.0"
+type: route
+data:
+  url: "/services/owncloud"
+  title: _("OwnCloud")
+  editing: true
+  component: omv-services-owncloud-form-page

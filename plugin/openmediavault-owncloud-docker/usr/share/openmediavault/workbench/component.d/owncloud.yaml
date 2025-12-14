@@ -1,0 +1,84 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-owncloud-form-page
+  type: formPage
+  config:
+    request:
+      service: OwnCloud
+      get:
+        method: getSettings
+      post:
+        method: setSettings
+    fields:
+      - type: checkbox
+        name: enable
+        label: _("Enable OwnCloud")
+        value: false
+      - type: textInput
+        name: image
+        label: _("Image")
+        hint: _("Docker image name")
+        value: "owncloud/server"
+        validators:
+          required: true
+      - type: textInput
+        name: tag
+        label: _("Tag")
+        hint: _("Image tag")
+        value: "10.14"
+        validators:
+          required: true
+      - type: numberInput
+        name: httpport
+        label: _("HTTP port")
+        min: 1
+        max: 65535
+        value: 8080
+        validators:
+          required: true
+      - type: select
+        name: dataDir
+        label: _("Data directory")
+        placeholder: _("Select a shared folder ...")
+        hint: _("Choose an OMV shared folder to store OwnCloud data.")
+        valueField: uuid
+        textField: name
+        disabled: "{{ !enable }}"
+        store:
+          proxy:
+            service: Config
+            get:
+              method: get
+              params:
+                id: conf.system.sharedfolder
+          sorters:
+            - dir: asc
+              prop: name
+        validators:
+          required: true
+      - type: passwordInput
+        name: adminPass
+        label: _("Admin password")
+        reveal: true
+        validators:
+          required: true
+    buttons:
+      - template: submit
+        text: _("Save")
+      - text: _("Save and deploy")
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("Deploying OwnCloud ...")
+              startOnInit: true
+              request:
+                service: OwnCloud
+                method: applyChanges
+              buttons:
+                stop:
+                  hidden: true
+            successUrl: /services/owncloud
+      - template: reset
+        text: _("Reset")

@@ -1,0 +1,11 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.owncloud"
+  position: 90
+  text: _("OwnCloud")
+  icon: "mdi:cloud"
+  url: "/services/owncloud"
+  permissions:
+    role:
+      - admin

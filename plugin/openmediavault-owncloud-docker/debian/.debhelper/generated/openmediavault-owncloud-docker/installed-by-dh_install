@@ -1,0 +1,10 @@
+./usr/share/openmediavault/confdb/create.d/conf.service.owncloud.sh
+./usr/share/openmediavault/datamodels/conf.service.owncloud.json
+./usr/share/openmediavault/datamodels/rpc.owncloud.json
+./usr/share/openmediavault/engined/rpc/owncloud.inc
+./usr/share/openmediavault/mkconf/owncloud
+./usr/share/openmediavault/workbench/component.d/owncloud.yaml
+./usr/share/openmediavault/workbench/navigation.d/services.owncloud.yaml
+./usr/share/openmediavault/workbench/route.d/services.owncloud.yaml
+./usr/share/openmediavault/locale/en_US/openmediavault-owncloud-docker.po
+./srv/salt/omv/deploy/owncloud

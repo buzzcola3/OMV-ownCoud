@@ -1,0 +1,80 @@
+#!/bin/sh
+set -e
+
+CONFIG_JSON="$(omv-confdbadm read conf.service.owncloud)"
+IMAGE=$(echo "$CONFIG_JSON" | jq -r '.image')
+TAG=$(echo "$CONFIG_JSON" | jq -r '.tag')
+HTTPPORT=$(echo "$CONFIG_JSON" | jq -r '.httpport')
+SHARE_UUID=$(echo "$CONFIG_JSON" | jq -r '.dataDir')
+ADMINUSER=$(echo "$CONFIG_JSON" | jq -r '.adminUser')
+ADMINPASS=$(echo "$CONFIG_JSON" | jq -r '.adminPass')
+
+TARGET_DIR=/srv/owncloud
+COMPOSE_FILE="${TARGET_DIR}/docker-compose.yml"
+
+case "$SHARE_UUID" in
+  /*)
+    # Backward compatibility: allow a raw path that was previously configured.
+    DATADIR="$SHARE_UUID"
+    ;;
+  ""|"null")
+    echo "No shared folder configured for OwnCloud dataDir" >&2
+    exit 1
+    ;;
+  *)
+    SHARE_JSON=$(omv-confdbadm read --prettify conf.system.sharedfolder | jq -r --arg uuid "$SHARE_UUID" '.[] | select(.uuid==$uuid)')
+    if [ -z "$SHARE_JSON" ]; then
+      echo "Shared folder $SHARE_UUID not found" >&2
+      exit 1
+    fi
+
+    MNTENTREF=$(echo "$SHARE_JSON" | jq -r '.mntentref')
+    RELDIRPATH=$(echo "$SHARE_JSON" | jq -r '.reldirpath')
+    MOUNT_JSON=$(omv-confdbadm read --prettify conf.system.filesystem.mountpoint | jq -r --arg ref "$MNTENTREF" '.[] | select(.uuid==$ref)')
+    MOUNTDIR=$(echo "$MOUNT_JSON" | jq -r '.dir')
+
+    if [ -z "$MOUNTDIR" ] || [ "$MOUNTDIR" = "null" ]; then
+      echo "Mount point $MNTENTREF not found" >&2
+      exit 1
+    fi
+
+    DATADIR="${MOUNTDIR%/}/${RELDIRPATH#/}"
+    ;;
+esac
+
+mkdir -p "$TARGET_DIR"
+mkdir -p "$DATADIR"
+
+cat >"$COMPOSE_FILE" <<EOF
+version: "3.8"
+services:
+  owncloud:
+    image: ${IMAGE}:${TAG}
+    container_name: owncloud
+    restart: unless-stopped
+    ports:
+      - "${HTTPPORT}:8080"
+    environment:
+      - OWNCLOUD_DOMAIN=localhost
+      - OWNCLOUD_TRUSTED_DOMAINS=localhost
+EOF
+
+if [ -n "$ADMINUSER" ] && [ "$ADMINUSER" != "null" ]; then
+  echo "      - OWNCLOUD_ADMIN_USERNAME=${ADMINUSER}" >>"$COMPOSE_FILE"
+fi
+
+if [ -n "$ADMINPASS" ] && [ "$ADMINPASS" != "null" ]; then
+  echo "      - OWNCLOUD_ADMIN_PASSWORD=${ADMINPASS}" >>"$COMPOSE_FILE"
+fi
+
+cat >>"$COMPOSE_FILE" <<EOF
+    volumes:
+      - ${DATADIR}:/var/www/html
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/status.php"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+EOF
+
+echo "Wrote compose file to ${COMPOSE_FILE}"

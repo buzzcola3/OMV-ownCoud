@@ -1,0 +1,23 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    purge)
+        # Drop compose directory on purge.
+        docker rm -f owncloud 2>/dev/null || true
+        rm -rf /srv/owncloud || true
+        # Remove config object from ConfDB to avoid leftover nodes.
+        # Delete config object if datamodel exists.
+        if /usr/sbin/omv-confdbadm list | grep -q "conf.service.owncloud"; then
+            /usr/sbin/omv-confdbadm delete conf.service.owncloud || true
+        fi
+        ;;
+    remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+        ;;
+    *)
+        echo "postrm called with unknown argument '$1'" >&2
+        exit 1
+        ;;
+ esac
+
+exit 0

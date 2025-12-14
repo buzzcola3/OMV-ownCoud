@@ -1,0 +1,14 @@
+Source: openmediavault-owncloud-docker
+Section: admin
+Priority: optional
+Maintainer: Your Name <you@example.com>
+Build-Depends: debhelper-compat (= 12), openmediavault
+Standards-Version: 4.6.0
+Homepage: https://www.owncloud.com
+
+Package: openmediavault-owncloud-docker
+Architecture: all
+Depends: ${misc:Depends}, openmediavault (>= 6.0), docker-compose | docker.io, jq
+Description: OwnCloud deployment plugin for openmediavault
+ Provides UI, configuration database entries, and Salt automation to deploy
+ the official OwnCloud Docker container from within openmediavault.

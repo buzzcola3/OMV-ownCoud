@@ -1,0 +1,23 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    remove|deconfigure)
+        # Stop and remove stack if present to leave system clean.
+        if [ -f /srv/owncloud/docker-compose.yml ]; then
+            (cd /srv/owncloud && docker-compose down --remove-orphans) || true
+        fi
+        # Fallback: force-remove lingering container if compose is missing.
+        docker rm -f owncloud 2>/dev/null || true
+        ;;
+    upgrade)
+        ;;
+    failed-upgrade)
+        ;;
+    *)
+        echo "prerm called with unknown argument '$1'" >&2
+        exit 1
+        ;;
+ esac
+
+exit 0

@@ -1,0 +1,34 @@
+[
+  {
+    "type": "rpc",
+    "id": "rpc.owncloud.getSettings",
+    "params": {
+      "type": "object",
+      "properties": {}
+    },
+    "response": {
+      "$ref": "conf.service.owncloud"
+    }
+  },
+  {
+    "type": "rpc",
+    "id": "rpc.owncloud.setSettings",
+    "params": {
+      "$ref": "conf.service.owncloud"
+    },
+    "response": {
+      "$ref": "conf.service.owncloud"
+    }
+  },
+  {
+    "type": "rpc",
+    "id": "rpc.owncloud.applyChanges",
+    "params": {
+      "type": ["object", "null"],
+      "properties": {}
+    },
+    "response": {
+      "type": "string"
+    }
+  }
+]

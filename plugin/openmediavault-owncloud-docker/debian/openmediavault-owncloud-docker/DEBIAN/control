@@ -1,0 +1,12 @@
+Package: openmediavault-owncloud-docker
+Version: 0.1.0
+Architecture: all
+Maintainer: Your Name <you@example.com>
+Installed-Size: 45
+Depends: openmediavault (>= 6.0), docker-compose | docker.io, jq
+Section: admin
+Priority: optional
+Homepage: https://www.owncloud.com
+Description: OwnCloud deployment plugin for openmediavault
+ Provides UI, configuration database entries, and Salt automation to deploy
+ the official OwnCloud Docker container from within openmediavault.

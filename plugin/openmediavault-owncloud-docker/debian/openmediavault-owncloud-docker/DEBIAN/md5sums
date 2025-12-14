@@ -1,0 +1,11 @@
+3561a14d38069d7a8c8a7accd631fba0  srv/salt/omv/deploy/owncloud/init.sls
+5e2709edaf300ac033d655dfa9acabd2  usr/share/doc/openmediavault-owncloud-docker/changelog.gz
+0aa5ffe6c63ea58f0f3197c0618871fe  usr/share/openmediavault/confdb/create.d/conf.service.owncloud.sh
+d5cfa569176efa4d48678653a7438645  usr/share/openmediavault/datamodels/conf.service.owncloud.json
+c9370f9a187ac82ccdb180fdb6278a26  usr/share/openmediavault/datamodels/rpc.owncloud.json
+66e6454d24cb82307aba183748836b94  usr/share/openmediavault/engined/rpc/owncloud.inc
+1ac165b55a50f636fa99251f05568b59  usr/share/openmediavault/locale/en_US/openmediavault-owncloud-docker.po
+746d799d977a7286d8620589d7e86751  usr/share/openmediavault/mkconf/owncloud
+c5b2e52937e9dd9957825bdc575cc45e  usr/share/openmediavault/workbench/component.d/owncloud.yaml
+d7c3bd1202e3be1ddc24d9f2485e3e95  usr/share/openmediavault/workbench/navigation.d/services.owncloud.yaml
+2795a39d03799572b6c65b3288276036  usr/share/openmediavault/workbench/route.d/services.owncloud.yaml
