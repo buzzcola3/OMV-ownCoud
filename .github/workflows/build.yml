@@ -15,18 +15,25 @@ jobs:
       - name: Install build deps
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential debhelper devscripts fakeroot jq
+          sudo apt-get install -y build-essential debhelper devscripts fakeroot jq dpkg-dev
 
       - name: Build Debian package
         run: |
           cd plugin/openmediavault-owncloud-docker
           dpkg-buildpackage -b -us -uc -d
 
+      - name: List artifacts
+        run: |
+          find "$GITHUB_WORKSPACE" -maxdepth 2 -type f \( -name "*.deb" -o -name "*.buildinfo" -o -name "*.changes" \) -print
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: openmediavault-owncloud-docker
           path: |
-            ${{ github.workspace }}/*.deb
-            ${{ github.workspace }}/*.buildinfo
-            ${{ github.workspace }}/*.changes
+            ${{ github.workspace }}/**/*.deb
+            ${{ github.workspace }}/**/*.buildinfo
+            ${{ github.workspace }}/**/*.changes
+          if-no-files-found: warn
+          compression-level: 6
+          overwrite: false
