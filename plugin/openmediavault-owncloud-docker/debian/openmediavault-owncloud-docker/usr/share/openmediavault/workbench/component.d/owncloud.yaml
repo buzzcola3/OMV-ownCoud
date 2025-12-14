@@ -34,27 +34,16 @@ data:
         label: _("HTTP port")
         min: 1
         max: 65535
-        value: 8080
+        value: 8088
         validators:
           required: true
-      - type: select
+      - type: sharedFolderSelect
         name: dataDir
         label: _("Data directory")
         placeholder: _("Select a shared folder ...")
         hint: _("Choose an OMV shared folder to store OwnCloud data.")
+        textField: description
         valueField: uuid
-        textField: name
-        disabled: "{{ !enable }}"
-        store:
-          proxy:
-            service: Config
-            get:
-              method: get
-              params:
-                id: conf.system.sharedfolder
-          sorters:
-            - dir: asc
-              prop: name
         validators:
           required: true
       - type: passwordInput

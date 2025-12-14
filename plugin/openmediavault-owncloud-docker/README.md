@@ -25,6 +25,13 @@ dpkg-buildpackage -b -us -uc
 
 Install the generated `.deb` from the repository root (one level up).
 
+## Installing from releases
+1) Download the latest `.deb` asset from the GitHub Releases page.
+2) Copy it to your OMV box and install:
+	- `sudo dpkg -i openmediavault-owncloud-docker_*.deb`
+	- If dependencies are missing, run `sudo apt-get -f install`.
+3) The plugin appears under Services → OwnCloud in the OMV UI.
+
 ### Continuous integration
 - GitHub Actions workflow `build.yml` builds the Debian package on pushes/PRs.
 - Artifacts: resulting `.deb` and build logs for inspection.
@@ -32,7 +39,7 @@ Install the generated `.deb` from the repository root (one level up).
 ## Configuration fields
 - `Enable OwnCloud`: whether the Salt state should bring the stack up.
 - `Image` / `Tag`: Docker image and tag (default `owncloud/server:10.14`).
-- `HTTP port`: host port bound to container port 8080.
+- `HTTP port`: host port bound to container port 8080 (default 8088).
 - `Data directory`: host path for persistent data (default `/srv/owncloud/data`).
 - `Admin user` / `Admin password`: optional bootstrap credentials for the first start.
 

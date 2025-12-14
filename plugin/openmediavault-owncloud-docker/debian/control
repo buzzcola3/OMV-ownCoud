@@ -1,7 +1,7 @@
 Source: openmediavault-owncloud-docker
 Section: admin
 Priority: optional
-Maintainer: Your Name <you@example.com>
+Maintainer: Buzz Cola <buzzcola3@example.com>
 Build-Depends: debhelper-compat (= 12), openmediavault
 Standards-Version: 4.6.0
 Homepage: https://www.owncloud.com

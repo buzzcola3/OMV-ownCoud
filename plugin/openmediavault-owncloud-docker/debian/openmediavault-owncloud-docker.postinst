@@ -3,9 +3,16 @@ set -e
 
 case "$1" in
     configure)
-        # Reload datamodels and workbench cache, then pre-render compose.
+        # Ensure ConfDB object exists, rebuild workbench cache, then pre-render compose.
+        if ! /usr/sbin/omv-confdbadm read conf.service.owncloud >/dev/null 2>&1; then
+            /usr/sbin/omv-confdbadm create conf.service.owncloud || true
+        fi
         /usr/sbin/omv-confdbadm populate || true
-        /bin/bash /usr/share/openmediavault/mkconf/owncloud || true
+        /usr/sbin/omv-mkworkbench all || true
+        DATADIR=$(/usr/sbin/omv-confdbadm read conf.service.owncloud 2>/dev/null | jq -r '.dataDir // ""')
+        if [ -n "$DATADIR" ]; then
+            /bin/bash /usr/share/openmediavault/mkconf/owncloud || true
+        fi
         /bin/systemctl restart openmediavault-engined || true
         ;;
     abort-upgrade|abort-remove|abort-deconfigure)

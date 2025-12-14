@@ -49,6 +49,21 @@ class OMVRpcServiceOwnCloud extends \OMV\Rpc\ServiceAbstract
         ));
         $this->validateMethodParams($params, "rpc.owncloud.applyChanges");
 
+        // Validate that a shared folder is selected before running Salt.
+        $config = $this->getConfigObject("conf.service.owncloud");
+        $dataDir = $config->get("dataDir");
+        if (empty($dataDir) || !preg_match('/^[a-f0-9-]{36}$/', $dataDir)) {
+            throw new \OMV\Exception("Please select a shared folder for OwnCloud data before deploying.");
+        }
+        $db = \OMV\Config\Database::getInstance();
+        if (!$db->exists("conf.system.sharedfolder", array(
+            "operator" => "stringEquals",
+            "arg0" => "uuid",
+            "arg1" => $dataDir
+        ))) {
+            throw new \OMV\Exception("Selected shared folder no longer exists. Please choose another one.");
+        }
+
         // Run the deploy via Salt in the background so the UI can poll progress.
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename) {
             $process = new \OMV\System\Process("omv-salt",
@@ -84,6 +99,10 @@ class OMVRpcServiceOwnCloud extends \OMV\Rpc\ServiceAbstract
 
         $object['enable'] = filter_var($object['enable'] ?? false, FILTER_VALIDATE_BOOLEAN);
         $object['dataDir'] = $object['dataDir'] ?? '';
+        // Normalize dataDir: blank out any legacy absolute path so the UI select works.
+        if (!preg_match('/^[a-f0-9-]{36}$/', $object['dataDir'])) {
+            $object['dataDir'] = '';
+        }
 
         return $object;
     }

@@ -1,3 +1,53 @@
+openmediavault-owncloud-docker (0.1.13) stable; urgency=medium
+
+  * Keep shared folder selector always enabled to avoid grayed-out dropdown issues.
+
+ -- Buzz Cola <buzzcola3@example.com>  Sun, 14 Dec 2025 14:25:00 +0000
+
+openmediavault-owncloud-docker (0.1.12) stable; urgency=medium
+
+  * Use built-in sharedFolderSelect component so the shared folder dropdown works consistently.
+
+ -- Buzz Cola <buzzcola3@example.com>  Sun, 14 Dec 2025 14:10:00 +0000
+
+openmediavault-owncloud-docker (0.1.11) stable; urgency=medium
+
+  * Skip mkconf during install if no shared folder is selected to prevent postinst failures.
+
+ -- Buzz Cola <buzzcola3@example.com>  Sun, 14 Dec 2025 13:55:00 +0000
+
+openmediavault-owncloud-docker (0.1.10) stable; urgency=medium
+
+  * Block deploy when no shared folder is selected; validate UUID exists before running Salt.
+
+ -- Buzz Cola <buzzcola3@example.com>  Sun, 14 Dec 2025 13:40:00 +0000
+
+openmediavault-owncloud-docker (0.1.9) stable; urgency=medium
+
+  * Fix shared folder dropdown: use ShareMgmt.enumerateSharedFolders data and show description.
+
+ -- Buzz Cola <buzzcola3@example.com>  Sun, 14 Dec 2025 13:20:00 +0000
+
+openmediavault-owncloud-docker (0.1.8) stable; urgency=medium
+
+  * Remove unsupported --skip-invalid flag from workbench rebuild on OMV 7.
+
+ -- Buzz Cola <buzzcola3@example.com>  Sun, 14 Dec 2025 13:00:00 +0000
+
+openmediavault-owncloud-docker (0.1.7) stable; urgency=medium
+
+  * Change default HTTP port to 8088 to reduce conflicts.
+
+ -- Buzz Cola <buzzcola3@example.com>  Sun, 14 Dec 2025 12:30:00 +0000
+
+openmediavault-owncloud-docker (0.1.6) stable; urgency=medium
+
+  * Ensure ConfDB object exists on install/upgrade to avoid missing XPath errors.
+  * Rebuild workbench cache automatically in postinst.
+  * Default dataDir to blank and normalize legacy paths so shared-folder selector works.
+
+ -- Buzz Cola <buzzcola3@example.com>  Sun, 14 Dec 2025 12:00:00 +0000
+
 openmediavault-owncloud-docker (0.1.0) stable; urgency=medium
 
   * Initial package skeleton for OwnCloud Docker plugin.
