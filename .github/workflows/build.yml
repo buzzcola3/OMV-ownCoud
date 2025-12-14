@@ -37,3 +37,14 @@ jobs:
           if-no-files-found: warn
           compression-level: 6
           overwrite: false
+
+      - name: Attach artifacts to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ${{ github.workspace }}/**/*.deb
+            ${{ github.workspace }}/**/*.buildinfo
+            ${{ github.workspace }}/**/*.changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
