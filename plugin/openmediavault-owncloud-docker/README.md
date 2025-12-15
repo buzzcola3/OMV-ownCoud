@@ -26,7 +26,7 @@ dpkg-buildpackage -b -us -uc
 Install the generated `.deb` from the repository root (one level up).
 
 ## Installing from releases
-1) Download the latest `.deb` asset from the GitHub Releases page.
+1) Download the latest `.deb` asset from the GitHub Releases page (requires Podman + podman-compose on the host).
 2) Copy it to your OMV box and install:
 	- `sudo dpkg -i openmediavault-owncloud-docker_*.deb`
 	- If dependencies are missing, run `sudo apt-get -f install`.
