@@ -1,3 +1,10 @@
+openmediavault-owncloud-docker (0.1.16) stable; urgency=medium
+
+  * Ship MariaDB sidecar by default and wire OwnCloud env to MySQL.
+  * Add dedicated DB volume under /srv/owncloud/db.
+
+ -- Buzz Cola <buzzcola3@example.com>  Mon, 15 Dec 2025 23:00:00 +0000
+
 openmediavault-owncloud-docker (0.1.15) stable; urgency=medium
 
   * Fix package payload to include /mnt/data volume mapping in mkconf.

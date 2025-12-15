@@ -50,13 +50,11 @@ Install the generated `.deb` from the repository root (one level up).
 4. If disabled, the Salt state runs `podman-compose down --remove-orphans` for cleanup.
 
 ## Notes
-- HTTPS termination is assumed to be handled by a reverse proxy (e.g., Nginx or SWAG) in front of the HTTP port.
-- SQLite is used by default. Extend the compose file manually if you need MariaDB/Redis.
-- Data lives in the configured data directory; back it up before wiping or changing disks.
+ - MariaDB sidecar is included by default; DB data lives in `/srv/owncloud/db` (defaults: db name/user/password `owncloud`).
+ - Data lives in the configured data directory; back it up before wiping or changing disks.
 
 ## Working config (Cloudflare tunnel + MariaDB)
-- Keep `data/config/config.php` in your data directory; adjust it after the first start if you add a tunnel or DB.
-- For MariaDB: set `dbtype => 'mysql'`, `dbhost => 'owncloud-db'`, `dbport => '3306'`, and ensure the image has the MySQL driver (official `owncloud/server:10.14` already does; otherwise install `php-mysql`).
+ - For MariaDB: set `dbtype => 'mysql'`, `dbhost => 'owncloud-db'`, `dbport => '3306'`, and ensure the image has the MySQL driver (official `owncloud/server:10.14` already does; otherwise install `php-mysql`). Defaults shipped: db name/user/password `owncloud`, host `owncloud-db`.
 - For Cloudflare tunnels: add your tunnel host (and host:port if non-443) to `trusted_domains`, then set `overwritehost` to that host and `overwriteprotocol` to `https` to avoid trusted-domain warnings.
 - If a warning persists, check `data/files/owncloud.log` for the exact `host` value in the "Trusted domain error" entry and add that host string verbatim to `trusted_domains`.
 - Data path: the plugin binds your selected data directory to `/mnt/data` inside the container. OwnCloud stores uploads under `/mnt/data/data/<username>/files/` on the host.

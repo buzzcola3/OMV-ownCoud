@@ -11,6 +11,7 @@ ADMINPASS=$(echo "$CONFIG_JSON" | jq -r '.adminPass')
 
 TARGET_DIR=/srv/owncloud
 COMPOSE_FILE="${TARGET_DIR}/docker-compose.yml"
+DB_DIR="${TARGET_DIR}/db"
 
 case "$SHARE_UUID" in
   /*)
@@ -44,6 +45,7 @@ esac
 
 mkdir -p "$TARGET_DIR"
 mkdir -p "$DATADIR"
+mkdir -p "$DB_DIR"
 
 cat >"$COMPOSE_FILE" <<EOF
 version: "3.8"
@@ -57,6 +59,11 @@ services:
     environment:
       - OWNCLOUD_DOMAIN=localhost
       - OWNCLOUD_TRUSTED_DOMAINS=localhost
+      - OWNCLOUD_DB_TYPE=mysql
+      - OWNCLOUD_DB_NAME=owncloud
+      - OWNCLOUD_DB_USERNAME=owncloud
+      - OWNCLOUD_DB_PASSWORD=owncloud
+      - OWNCLOUD_DB_HOST=owncloud-db
 EOF
 
 if [ -n "$ADMINUSER" ] && [ "$ADMINUSER" != "null" ]; then
@@ -75,6 +82,19 @@ cat >>"$COMPOSE_FILE" <<EOF
       interval: 30s
       timeout: 10s
       retries: 5
+
+  owncloud-db:
+    image: mariadb:10.6
+    container_name: owncloud-db
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=owncloud
+      - MYSQL_DATABASE=owncloud
+      - MYSQL_USER=owncloud
+      - MYSQL_PASSWORD=owncloud
+    volumes:
+      - ${DB_DIR}:/var/lib/mysql
+    command: ["--transaction-isolation=READ-COMMITTED", "--binlog-format=ROW"]
 EOF
 
 echo "Wrote compose file to ${COMPOSE_FILE}"
